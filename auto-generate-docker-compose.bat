@@ -1,4 +1,6 @@
 @echo off
+REM This batch file automatically generate Docker compose file with 10 Nginx containers with port mapping. 
+REM Use this batch file to genrate multiple containers to be kiiled using  Pumba's Container Kill experiment  
 echo version: '3' > docker-compose.yml
 echo services: >> docker-compose.yml
 

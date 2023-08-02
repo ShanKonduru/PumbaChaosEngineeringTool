@@ -199,3 +199,90 @@ $ ./pumba --interval 3m stop queue &
 # Pumba will restore normal connectivity after 2 minutes. 
 # Print debug trace to STDOUT too.
 $ ./pumba --debug --interval 5m --random netem --duration 2m --interface eth2 delay --amount 2000 re2:^result
+
+# Injecting Network Delays
+
+Issue the following command to create a container named networker. This ensures iproute2 is up to date and performs a ping on google.com for testing.
+
+```shell
+docker run --rm --name networker -it alpine sh -c "apk add --update iproute2 && ping google.com"
+```
+```shell
+# OUTPUT
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.8/main/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.8/community/x86_64/APKINDEX.tar.gz
+(1/6) Installing libelf (0.8.13-r3)
+(2/6) Installing libmnl (1.0.4-r0)
+(3/6) Installing jansson (2.11-r0)
+(4/6) Installing libnftnl-libs (1.1.1-r0)
+(5/6) Installing iptables (1.6.2-r0)
+(6/6) Installing iproute2 (4.13.0-r0)
+Executing iproute2-4.13.0-r0.post-install
+Executing busybox-1.28.4-r1.trigger
+OK: 8 MiB in 19 packages
+PING google.com (172.217.3.174): 56 data bytes
+64 bytes from 172.217.3.174: seq=0 ttl=127 time=8.992 ms
+64 bytes from 172.217.3.174: seq=1 ttl=127 time=9.965 ms
+64 bytes from 172.217.3.174: seq=2 ttl=127 time=10.332 ms
+```
+Open a second terminal and issue the following command to cause a 5000 millisecond delay over a total of 15 seconds.
+
+```shell
+pumba -l info netem --duration 15s delay --time 5000 networker
+```
+
+```shell
+# TERMINAL 2: OUTPUT
+INFO[0000] Running netem command '[delay 5000ms 10ms 20.00]' on container 2a4066e2865ed24464fa458982374795d62df11b0368e0886f77fc62cdc47664 for 15s  app=pumba function=github.com/alexei-led/pumba/pkg/container.dockerClient.NetemContainer source=container/client.go:220
+INFO[0000] start netem for container                     app=pumba dryrun=false function=github.com/alexei-led/pumba/pkg/container.dockerClient.startNetemContainer id=2a4066e2865ed24464fa458982374795d62df11b0368e0886f77fc62cdc47664 iface=eth0 name=/networker netem=delay 5000ms 10ms 20.00 source=container/client.go:276 tcimage=
+INFO[0015] stopping netem on container                   IPs=[] app=pumba dryrun=false function=github.com/alexei-led/pumba/pkg/container.dockerClient.StopNetemContainer id=2a4066e2865ed24464fa458982374795d62df11b0368e0886f77fc62cdc47664 iface=eth0 name=/networker source=container/client.go:240 tc-image=
+INFO[0015] stop netem for container                      IPs=[] app=pumba dryrun=false function=github.com/alexei-led/pumba/pkg/container.dockerClient.stopNetemContainer id=2a4066e2865ed24464fa458982374795d62df11b0368e0886f77fc62cdc47664 iface=eth0 name=/networker source=container/client.go:298 tcimage=
+```
+```shell
+# TERMINAL 1: OUTPUT
+64 bytes from 172.217.3.174: seq=509 ttl=127 time=9.638 ms
+64 bytes from 172.217.3.174: seq=512 ttl=127 time=5013.608 ms
+64 bytes from 172.217.3.174: seq=514 ttl=127 time=5011.516 ms
+64 bytes from 172.217.3.174: seq=510 ttl=127 time=9299.192 ms
+64 bytes from 172.217.3.174: seq=511 ttl=127 time=9297.367 ms
+64 bytes from 172.217.3.174: seq=516 ttl=127 time=5011.184 ms
+64 bytes from 172.217.3.174: seq=513 ttl=127 time=9301.741 ms
+64 bytes from 172.217.3.174: seq=518 ttl=127 time=5016.096 ms
+64 bytes from 172.217.3.174: seq=519 ttl=127 time=5014.941 ms
+64 bytes from 172.217.3.174: seq=515 ttl=127 time=9304.069 ms
+64 bytes from 172.217.3.174: seq=527 ttl=127 time=10.468 ms
+```
+
+# Dropping Packets
+Issue the following command to create a container named networker and have it start downloading a fairly large file via curl.
+```shell
+docker run --rm --name networker -it alpine sh -c "apk add --update iproute2 && apk add --update curl && curl -O http://ubuntu-releases.eecs.wsu.edu/18.04.1/ubuntu-18.04.1-desktop-amd64.iso"
+```
+
+```shell
+# TERMINAL 1: OUTPUT
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                Dload  Upload   Total   Spent    Left  Speed
+8 1862M    8  155M    0     0  9698k      0  0:03:16  0:00:16  0:03:00 11.4M
+```
+
+Open a second terminal and issue the loss command, which will drop 25% of all packets for the next 2 minutes.
+
+```shell
+pumba netem --duration 2m loss --percent 10 networker
+```
+
+You should notice the packet loss affecting the curl download -- in this case, roughly halving download speeds.
+
+```shell
+# TERMINAL 1: OUTPUT
+ % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                Dload  Upload   Total   Spent    Left  Speed
+13 1862M   13  259M    0     0  7403k      0  0:04:17  0:00:35  0:03:42 5807k
+```
+
+# Useful Links
+```shell
+https://www.gremlin.com/chaos-monkey/chaos-monkey-alternatives/docker/
+
+```
