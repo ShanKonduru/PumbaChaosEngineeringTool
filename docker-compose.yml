@@ -1,42 +1,75 @@
 version: '3' 
 services: 
-  nginx_81: 
+  nginx_91: 
     image: nginx 
     ports: 
-      - "81:80" 
-  nginx_82: 
+      - "91:80" 
+    networks: 
+      - containers_to_kill_net 
+    container_name: nginx_91 
+  nginx_92: 
     image: nginx 
     ports: 
-      - "82:80" 
-  nginx_83: 
+      - "92:80" 
+    networks: 
+      - containers_to_kill_net 
+    container_name: nginx_92 
+  nginx_93: 
     image: nginx 
     ports: 
-      - "83:80" 
-  nginx_84: 
+      - "93:80" 
+    networks: 
+      - containers_to_kill_net 
+    container_name: nginx_93 
+  nginx_94: 
     image: nginx 
     ports: 
-      - "84:80" 
-  nginx_85: 
+      - "94:80" 
+    networks: 
+      - containers_to_kill_net 
+    container_name: nginx_94 
+  nginx_95: 
     image: nginx 
     ports: 
-      - "85:80" 
-  nginx_86: 
+      - "95:80" 
+    networks: 
+      - containers_to_kill_net 
+    container_name: nginx_95 
+  nginx_96: 
     image: nginx 
     ports: 
-      - "86:80" 
-  nginx_87: 
+      - "96:80" 
+    networks: 
+      - containers_to_kill_net 
+    container_name: nginx_96 
+  nginx_97: 
     image: nginx 
     ports: 
-      - "87:80" 
-  nginx_88: 
+      - "97:80" 
+    networks: 
+      - containers_to_kill_net 
+    container_name: nginx_97 
+  nginx_98: 
     image: nginx 
     ports: 
-      - "88:80" 
-  nginx_89: 
+      - "98:80" 
+    networks: 
+      - containers_to_kill_net 
+    container_name: nginx_98 
+  nginx_99: 
     image: nginx 
     ports: 
-      - "89:80" 
-  nginx_90: 
+      - "99:80" 
+    networks: 
+      - containers_to_kill_net 
+    container_name: nginx_99 
+  nginx_100: 
     image: nginx 
     ports: 
-      - "90:80" 
+      - "100:80" 
+    networks: 
+      - containers_to_kill_net 
+    container_name: nginx_100 
+networks: 
+  containers_to_kill_net: 
+    driver: bridge 
