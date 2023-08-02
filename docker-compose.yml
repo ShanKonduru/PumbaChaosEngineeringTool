@@ -1,0 +1,42 @@
+version: '3' 
+services: 
+  nginx_81: 
+    image: nginx 
+    ports: 
+      - "81:80" 
+  nginx_82: 
+    image: nginx 
+    ports: 
+      - "82:80" 
+  nginx_83: 
+    image: nginx 
+    ports: 
+      - "83:80" 
+  nginx_84: 
+    image: nginx 
+    ports: 
+      - "84:80" 
+  nginx_85: 
+    image: nginx 
+    ports: 
+      - "85:80" 
+  nginx_86: 
+    image: nginx 
+    ports: 
+      - "86:80" 
+  nginx_87: 
+    image: nginx 
+    ports: 
+      - "87:80" 
+  nginx_88: 
+    image: nginx 
+    ports: 
+      - "88:80" 
+  nginx_89: 
+    image: nginx 
+    ports: 
+      - "89:80" 
+  nginx_90: 
+    image: nginx 
+    ports: 
+      - "90:80" 
