@@ -109,47 +109,47 @@ Pumba can be installed in many ways, in this article we will talk about easiest 
 
 Use the following command to stop docker containers once in every 10 minutes.
 In order to test this command, we must have few containers running in "Docker Desktop".
-* Create 4 or 5 Nginx Containers using the following command.
-* Create Container #1
-```shell
-docker run -l service=nginx -p 80:80 -d nginx
-```
-After successfull execution of the above command, you would get the Container ID as output shown below.
-```shell
-bbba5a85d2e96e2d94263e0886e8578345723cecb0329c45a129a71860a41111
-```
-* Create Container #2
-```shell
-docker run -l service=nginx -p 81:80 -d nginx
-```
-After successfull execution of the above command, you would get the Container ID as output shown below.
-```shell
-4bf294b5f63d191a8e12c29a03878d63e62ec7c7c49bc070811a5e2b894a83e5
-```
-* Create Container #3
-```shell
-docker run -l service=nginx -p 82:80 -d nginx
-```
-After successfull execution of the above command, you would get the Container ID as output shown below.
-```shell
-20b8abf8d145cbab134f9cf63f063796456e93230d150a5e5117ba9d68345638
-```
-* Create Container #4
-```shell
-docker run -l service=nginx -p 83:80 -d nginx
-```
-After successfull execution of the above command, you would get the Container ID as output shown below.
-```shell
-11d3c7d1dbd2381b69845b029015755360fa7282610ecee736cdce9903f7139a
-```
-* Create Container #5
-```shell
-docker run -l service=nginx -p 84:80 -d nginx
-```
-After successfull execution of the above command, you would get the Container ID as output shown below.
-```shell
-4bfe6205999846f11042a3c8ac48e418f8e8985185f8308461d43c58ea02157e
-```
+1. Create 4 or 5 Nginx Containers using the following command.
+    * Create Container #1
+    ```shell
+        docker run -l service=nginx -p 80:80 -d nginx
+    ```
+    After successfull execution of the above command, you would get the Container ID as output shown below.
+    ```shell
+        bbba5a85d2e96e2d94263e0886e8578345723cecb0329c45a129a71860a41111
+    ```
+    * Create Container #2
+    ```shell
+        docker run -l service=nginx -p 81:80 -d nginx
+    ```
+    After successfull execution of the above command, you would get the Container ID as output shown below.
+    ```shell
+        4bf294b5f63d191a8e12c29a03878d63e62ec7c7c49bc070811a5e2b894a83e5
+    ```
+    * Create Container #3
+    ```shell
+        docker run -l service=nginx -p 82:80 -d nginx
+    ```
+    After successfull execution of the above command, you would get the Container ID as output shown below.
+    ```shell
+        20b8abf8d145cbab134f9cf63f063796456e93230d150a5e5117ba9d68345638
+    ```
+    * Create Container #4
+    ```shell
+        docker run -l service=nginx -p 83:80 -d nginx
+    ```
+    After successfull execution of the above command, you would get the Container ID as output shown below.
+    ```shell
+        11d3c7d1dbd2381b69845b029015755360fa7282610ecee736cdce9903f7139a
+    ```
+    * Create Container #5
+    ```shell
+        docker run -l service=nginx -p 84:80 -d nginx
+    ```
+    After successfull execution of the above command, you would get the Container ID as output shown below.
+    ```shell
+        4bfe6205999846f11042a3c8ac48e418f8e8985185f8308461d43c58ea02157e
+    ```
 ### Test
 * to see if the containers were created or not use the following command.
 ```shell
@@ -187,15 +187,17 @@ docker run -itd --rm -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba 
 
 # every hour remove containers starting with "hp"
 
-$ ./pumba --interval 15m kill --signal SIGTERM mysql &
-$ ./pumba --interval 1h rm re2:^hp &
+```shell
+pumba --interval 15m kill --signal SIGTERM mysql pumba --interval 1h rm re2:^hp
+```
 
 # every 30 seconds kill "worker1" and "worker2" containers
 
 # and every 3 minutes stop "queue" container
 
-$ ./pumba --interval 30s kill --signal SIGKILL worker1 worker2 &
-$ ./pumba --interval 3m stop queue &
+```shell
+pumba --interval 30s kill --signal SIGKILL worker1 worker2 pumba --interval 3m stop queue
+```
 
 # Once in 5 minutes, Pumba will delay for 2 seconds (2000ms)
 
@@ -209,7 +211,9 @@ $ ./pumba --interval 3m stop queue &
 
 # Print debug trace to STDOUT too.
 
-\$ ./pumba --debug --interval 5m --random netem --duration 2m --interface eth2 delay --amount 2000 re2:^result
+```shell
+pumba --debug --interval 5m --random netem --duration 2m --interface eth2 delay --amount 2000 re2:^result
+```
 
 # Injecting Network Delays
 
@@ -281,13 +285,11 @@ docker run --rm --name networker -it alpine sh -c "apk add --update iproute2 && 
                                 Dload  Upload   Total   Spent    Left  Speed
 8 1862M    8  155M    0     0  9698k      0  0:03:16  0:00:16  0:03:00 11.4M
 ```
-
 Open a second terminal and issue the loss command, which will drop 25% of all packets for the next 2 minutes.
 
 ```shell
 pumba netem --duration 2m loss --percent 10 networker
 ```
-
 You should notice the packet loss affecting the curl download -- in this case, roughly halving download speeds.
 
 ```shell
@@ -302,5 +304,4 @@ You should notice the packet loss affecting the curl download -- in this case, r
 ```shell
 https://www.gremlin.com/chaos-monkey/chaos-monkey-alternatives/docker/
 https://alexei-led.github.io/post/pumba_docker_netem/
-
 ```
