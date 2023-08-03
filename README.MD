@@ -1,3 +1,5 @@
+![Pumba](https://en.wikipedia.org/wiki/Timon_and_Pumbaa#/media/File:Pumbaa.png)  
+
 # Introduction
 
 Building resilient services is the most effective way to defend against unforeseen failures. By testing for resiliency, teams can identify these failures proactively, before they become apparent to the customers or end users. Intentionally inducing failures during resiliency testing allows you to enforce a robust system-building policy. Resilience, in this context, refers to the system's ability to maintain functionality even if certain components experience failures, often referred to as "ephemerality."
