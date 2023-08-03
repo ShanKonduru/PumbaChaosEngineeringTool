@@ -111,7 +111,7 @@ Use the following command to stop docker containers once in every 10 minutes.
 In order to test this command, we must have few containers running in "Docker Desktop".
 * Create 4 or 5 Nginx Containers using the following command.
 * Create Container #1
-``shell
+```shell
 docker run -l service=nginx -p 80:80 -d nginx
 ```
 After successfull execution of the above command, you would get the Container ID as output shown below.
