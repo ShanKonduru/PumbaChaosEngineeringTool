@@ -111,76 +111,76 @@ Use the following command to stop docker containers once in every 10 minutes.
 In order to test this command, we must have few containers running in "Docker Desktop".
 * Create 4 or 5 Nginx Containers using the following command.
 * Create Container #1
-    ```shell
-    docker run -l service=nginx -p 80:80 -d nginx
+``shell
+docker run -l service=nginx -p 80:80 -d nginx
 ```
 After successfull execution of the above command, you would get the Container ID as output shown below.
 ```shell
-    bbba5a85d2e96e2d94263e0886e8578345723cecb0329c45a129a71860a41111
+bbba5a85d2e96e2d94263e0886e8578345723cecb0329c45a129a71860a41111
 ```
 * Create Container #2
-    ```shell
-    docker run -l service=nginx -p 81:80 -d nginx
+```shell
+docker run -l service=nginx -p 81:80 -d nginx
 ```
 After successfull execution of the above command, you would get the Container ID as output shown below.
 ```shell
-    4bf294b5f63d191a8e12c29a03878d63e62ec7c7c49bc070811a5e2b894a83e5
+4bf294b5f63d191a8e12c29a03878d63e62ec7c7c49bc070811a5e2b894a83e5
 ```
 * Create Container #3
-    ```shell
-    docker run -l service=nginx -p 82:80 -d nginx
+```shell
+docker run -l service=nginx -p 82:80 -d nginx
 ```
 After successfull execution of the above command, you would get the Container ID as output shown below.
 ```shell
-    20b8abf8d145cbab134f9cf63f063796456e93230d150a5e5117ba9d68345638
+20b8abf8d145cbab134f9cf63f063796456e93230d150a5e5117ba9d68345638
 ```
 * Create Container #4
-    ```shell
-    docker run -l service=nginx -p 83:80 -d nginx
+```shell
+docker run -l service=nginx -p 83:80 -d nginx
 ```
 After successfull execution of the above command, you would get the Container ID as output shown below.
 ```shell
-    11d3c7d1dbd2381b69845b029015755360fa7282610ecee736cdce9903f7139a
+11d3c7d1dbd2381b69845b029015755360fa7282610ecee736cdce9903f7139a
 ```
 * Create Container #5
-    ```shell
-    docker run -l service=nginx -p 84:80 -d nginx
+```shell
+docker run -l service=nginx -p 84:80 -d nginx
 ```
 After successfull execution of the above command, you would get the Container ID as output shown below.
 ```shell
-    4bfe6205999846f11042a3c8ac48e418f8e8985185f8308461d43c58ea02157e
+4bfe6205999846f11042a3c8ac48e418f8e8985185f8308461d43c58ea02157e
 ```
 ### Test
 * to see if the containers were created or not use the following command.
-    ```shell
-    docker ps
+```shell
+docker ps
 ```
 After successfull execution of the above command, you would get the output shown below.
 ```shell
-    CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS         PORTS                NAMES
-    4bfe62059998   nginx     "/docker-entrypoint.…"   4 minutes ago   Up 4 minutes   0.0.0.0:84->80/tcp   keen_galileo
-    11d3c7d1dbd2   nginx     "/docker-entrypoint.…"   4 minutes ago   Up 4 minutes   0.0.0.0:83->80/tcp   objective_kalam
-    20b8abf8d145   nginx     "/docker-entrypoint.…"   4 minutes ago   Up 4 minutes   0.0.0.0:82->80/tcp   epic_easley
-    4bf294b5f63d   nginx     "/docker-entrypoint.…"   4 minutes ago   Up 4 minutes   0.0.0.0:81->80/tcp   charming_benz
-    bbba5a85d2e9   nginx     "/docker-entrypoint.…"   4 minutes ago   Up 4 minutes   0.0.0.0:80->80/tcp   romantic_khayyam
+CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS         PORTS                NAMES
+4bfe62059998   nginx     "/docker-entrypoint.…"   4 minutes ago   Up 4 minutes   0.0.0.0:84->80/tcp   keen_galileo
+1d3c7d1dbd2   nginx     "/docker-entrypoint.…"   4 minutes ago   Up 4 minutes   0.0.0.0:83->80/tcp   objective_kalam
+20b8abf8d145   nginx     "/docker-entrypoint.…"   4 minutes ago   Up 4 minutes   0.0.0.0:82->80/tcp   epic_easley
+4bf294b5f63d   nginx     "/docker-entrypoint.…"   4 minutes ago   Up 4 minutes   0.0.0.0:81->80/tcp   charming_benz
+bbba5a85d2e9   nginx     "/docker-entrypoint.…"   4 minutes ago   Up 4 minutes   0.0.0.0:80->80/tcp   romantic_khayyam
 ```
 * If you see the above command it gives an instant status of containers, but while running the experiments on Docker Containers we need to which container is down and which container is up. to do that docker ps might not help, we need to use the following command to constantly monitor docker ps command.
 * Open Powershell command window and run the following command. this command runs every 5 seconds and update the docker ps  command output.
-    ```shell
-    while ($true) { Clear-Host; docker ps; Start-Sleep -Seconds 5 }
+```shell
+while ($true) { Clear-Host; docker ps; Start-Sleep -Seconds 5 }
 ```
 After successfull execution of the above command, you would get the output shown below and this gets refreshed for evey 5 seconds.
 ```shell
-    CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS         PORTS                NAMES
-    4bfe62059998   nginx     "/docker-entrypoint.…"   4 minutes ago   Up 4 minutes   0.0.0.0:84->80/tcp   keen_galileo
-    11d3c7d1dbd2   nginx     "/docker-entrypoint.…"   4 minutes ago   Up 4 minutes   0.0.0.0:83->80/tcp   objective_kalam
-    20b8abf8d145   nginx     "/docker-entrypoint.…"   4 minutes ago   Up 4 minutes   0.0.0.0:82->80/tcp   epic_easley
-    4bf294b5f63d   nginx     "/docker-entrypoint.…"   4 minutes ago   Up 4 minutes   0.0.0.0:81->80/tcp   charming_benz
-    bbba5a85d2e9   nginx     "/docker-entrypoint.…"   4 minutes ago   Up 4 minutes   0.0.0.0:80->80/tcp   romantic_khayyam
+CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS         PORTS                NAMES
+4bfe62059998   nginx     "/docker-entrypoint.…"   4 minutes ago   Up 4 minutes   0.0.0.0:84->80/tcp   keen_galileo
+11d3c7d1dbd2   nginx     "/docker-entrypoint.…"   4 minutes ago   Up 4 minutes   0.0.0.0:83->80/tcp   objective_kalam
+20b8abf8d145   nginx     "/docker-entrypoint.…"   4 minutes ago   Up 4 minutes   0.0.0.0:82->80/tcp   epic_easley
+4bf294b5f63d   nginx     "/docker-entrypoint.…"   4 minutes ago   Up 4 minutes   0.0.0.0:81->80/tcp   charming_benz
+bbba5a85d2e9   nginx     "/docker-entrypoint.…"   4 minutes ago   Up 4 minutes   0.0.0.0:80->80/tcp   romantic_khayyam
 ```
 * Use the following command to generate docker container, this container does the job of kiiling all other Docker Containers running at that instance in time.
 ```shell
-    docker run -itd --rm -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba -l info --random --interval 30s kill
+docker run -itd --rm -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba -l info --random --interval 30s kill
 ```
 
 # every 15 minutes kill `mysql` container and
