@@ -155,7 +155,7 @@ In order to test this command, we must have few containers running in "Docker De
         4bfe6205999846f11042a3c8ac48e418f8e8985185f8308461d43c58ea02157e
     ```
 ### Test
-    * to see if the containers were created or not use the following command.
+2. Stady state - to see if the containers were created or not use the following command.
     ```shell
     docker ps
     ```
@@ -168,7 +168,7 @@ In order to test this command, we must have few containers running in "Docker De
     4bf294b5f63d   nginx     "/docker-entrypoint.…"   4 minutes ago   Up 4 minutes   0.0.0.0:81->80/tcp   charming_benz
     bbba5a85d2e9   nginx     "/docker-entrypoint.…"   4 minutes ago   Up 4 minutes   0.0.0.0:80->80/tcp   romantic_khayyam
     ```
-    * If you see the above command it gives an instant status of containers, but while running the experiments on Docker Containers we need to which container is down and which container is up. to do that docker ps might not help, we need to use the following command to constantly monitor docker ps command.
+3. Observability  - If you see the above command it gives an instant status of containers, but while running the experiments on Docker Containers we need to which container is down and which container is up. to do that docker ps might not help, we need to use the following command to constantly monitor docker ps command.
     * Open Powershell command window and run the following command. this command runs every 5 seconds and update the docker ps  command output.
     ```shell
     while ($true) { Clear-Host; docker ps; Start-Sleep -Seconds 5 }
@@ -182,7 +182,7 @@ In order to test this command, we must have few containers running in "Docker De
     4bf294b5f63d   nginx     "/docker-entrypoint.…"   4 minutes ago   Up 4 minutes   0.0.0.0:81->80/tcp   charming_benz
     bbba5a85d2e9   nginx     "/docker-entrypoint.…"   4 minutes ago   Up 4 minutes   0.0.0.0:80->80/tcp   romantic_khayyam
     ```
-    * Use the following command to generate docker container, this container does the job of kiiling all other Docker Containers running at that instance in time.
+4. Run Attack: Use the following command to generate docker container, this container does the job of kiiling all other Docker Containers running at that instance in time.
     ```shell
     docker run -itd --rm -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba -l info --random --interval 30s kill
     ```
