@@ -186,6 +186,15 @@ In order to test this command, we must have few containers running in "Docker De
     docker run -itd --rm -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba -l info --random --interval 30s kill
     ```
 
+docker run --rm --name networker -it alpine sh -c "apk add --update iproute2 && ping www.example.com"
+
+docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba -l info netem --duration 120s --tc-image=gaiadocker/iproute2 delay --time 10 networker
+
+docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba -l info netem --duration 15s --tc-image=gaiadocker/iproute2 delay --time 5000 networker
+
+docker run -it --rm  -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba -l debug netem --duration 10s --tc-image=gaiadocker/iproute2 loss --percent=100 networker
+
+
 ## 003-Attack-DropPacket
 
 ### every 15 minutes kill `mysql` container and every hour remove containers starting with "shan"
