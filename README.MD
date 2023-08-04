@@ -183,8 +183,11 @@ In order to test this command, we must have few containers running in "Docker De
 ### Run Attack
 4. Use the following command to generate docker container, this container does the job of kiiling all other Docker Containers running at that instance in time.
     ```shell
-    docker run -itd --rm -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba -l info --random --interval 30s kill
+    docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba -l info --random --interval 30s kill
     ```
+docker run --rm --name networker -it alpine sh -c "apk add --update iproute2 && ping www.example.com"
+docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba -l info netem --tc-image=gaiadocker/iproute2 --duration 15s delay --time 5000 networker
+
 
 docker run --rm --name networker -it alpine sh -c "apk add --update iproute2 && ping www.example.com"
 
@@ -195,6 +198,10 @@ docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba -
 docker run -it --rm  -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba -l debug netem --duration 10s --tc-image=gaiadocker/iproute2 loss --percent=100 networker
 
 
+docker run --rm --name networker -it alpine sh -c "apk add --update iproute2 && apk add --update curl && curl -O https://old-releases.ubuntu.com/releases/18.04.1/ubuntu-18.04.1-live-server-amd64.iso"
+
+docker run -it --rm  -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba netem --duration 2m loss --percent 10 networker
+
 ## 003-Attack-DropPacket
 
 ### every 15 minutes kill `mysql` container and every hour remove containers starting with "shan"
@@ -203,8 +210,8 @@ docker run -it --rm  -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba 
 
 
 ```shell
-docker run -itd --rm -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba -l info --random --interval 30s kill
-docker run -itd --rm -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba -l info --random --interval 15s kill --signal SIGTERM rm re2:^sh
+docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba -l info --random --interval 30s kill
+docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba -l info --random --interval 15s kill --signal SIGTERM rm re2:^sh
 ```
 
 # every 30 seconds kill "worker1" and "worker2" containers
