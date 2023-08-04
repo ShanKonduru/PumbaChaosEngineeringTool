@@ -1,75 +1,52 @@
 version: '3' 
 services: 
-  nginx_91: 
+  shan-nginx_1: 
     image: nginx 
     ports: 
-      - "91:80" 
-    networks: 
-      - containers_to_kill_net 
-    container_name: nginx_91 
-  nginx_92: 
+      - "1:80" 
+    container_name: new-nginx_1 
+  shan-nginx_2: 
     image: nginx 
     ports: 
-      - "92:80" 
-    networks: 
-      - containers_to_kill_net 
-    container_name: nginx_92 
-  nginx_93: 
+      - "2:80" 
+    container_name: new-nginx_2 
+  shan-nginx_3: 
     image: nginx 
     ports: 
-      - "93:80" 
-    networks: 
-      - containers_to_kill_net 
-    container_name: nginx_93 
-  nginx_94: 
+      - "3:80" 
+    container_name: shan-nginx_3 
+  new-nginx_4: 
     image: nginx 
     ports: 
-      - "94:80" 
-    networks: 
-      - containers_to_kill_net 
-    container_name: nginx_94 
-  nginx_95: 
+      - "4:80" 
+    container_name: new-nginx_4 
+  new-nginx_5: 
     image: nginx 
     ports: 
-      - "95:80" 
-    networks: 
-      - containers_to_kill_net 
-    container_name: nginx_95 
-  nginx_96: 
+      - "5:80" 
+    container_name: new-nginx_5 
+  new-nginx_6: 
     image: nginx 
     ports: 
-      - "96:80" 
-    networks: 
-      - containers_to_kill_net 
-    container_name: nginx_96 
-  nginx_97: 
+      - "6:80" 
+    container_name: new-nginx_6 
+  shan-nginx_7: 
     image: nginx 
     ports: 
-      - "97:80" 
-    networks: 
-      - containers_to_kill_net 
-    container_name: nginx_97 
-  nginx_98: 
+      - "7:80" 
+    container_name: shan-nginx_7 
+  new-nginx_8: 
     image: nginx 
     ports: 
-      - "98:80" 
-    networks: 
-      - containers_to_kill_net 
-    container_name: nginx_98 
-  nginx_99: 
+      - "8:80" 
+    container_name: new-nginx_8 
+  shan-nginx_9: 
     image: nginx 
     ports: 
-      - "99:80" 
-    networks: 
-      - containers_to_kill_net 
-    container_name: nginx_99 
-  nginx_100: 
+      - "9:80" 
+    container_name: shan-nginx_9 
+  new-nginx_10: 
     image: nginx 
     ports: 
-      - "100:80" 
-    networks: 
-      - containers_to_kill_net 
-    container_name: nginx_100 
-networks: 
-  containers_to_kill_net: 
-    driver: bridge 
+      - "10:80" 
+    container_name: new-nginx_10 
