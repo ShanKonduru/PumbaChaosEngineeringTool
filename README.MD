@@ -185,22 +185,37 @@ In order to test this command, we must have few containers running in "Docker De
     ```shell
     docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba -l info --random --interval 30s kill
     ```
+### Add network delay to a Container
+```shell
 docker run --rm --name networker -it alpine sh -c "apk add --update iproute2 && ping www.example.com"
+```
+```shell
 docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba -l info netem --tc-image=gaiadocker/iproute2 --duration 15s delay --time 5000 networker
+```
 
-
+```shell
 docker run --rm --name networker -it alpine sh -c "apk add --update iproute2 && ping www.example.com"
+```
 
+```shell
 docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba -l info netem --duration 120s --tc-image=gaiadocker/iproute2 delay --time 10 networker
+```
 
+```shell
 docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba -l info netem --duration 15s --tc-image=gaiadocker/iproute2 delay --time 5000 networker
+```
 
+```shell
 docker run -it --rm  -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba -l debug netem --duration 10s --tc-image=gaiadocker/iproute2 loss --percent=100 networker
+```
 
-
+```shell
 docker run --rm --name networker -it alpine sh -c "apk add --update iproute2 && apk add --update curl && curl -O https://old-releases.ubuntu.com/releases/18.04.1/ubuntu-18.04.1-live-server-amd64.iso"
+```
+```shell
 
 docker run -it --rm  -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba netem --duration 2m loss --percent 10 networker
+```
 
 ## 003-Attack-DropPacket
 
