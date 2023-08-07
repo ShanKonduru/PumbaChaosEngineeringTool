@@ -565,11 +565,12 @@ docker run -it --rm  -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba 
 docker network ls
 ```
 ```output
-NETWORK ID     NAME                DRIVER    SCOPE
-...
-9144f5605915   network1            bridge    local
-0e344a7f56b0   network2            bridge    local
-...
+NETWORK ID     NAME       DRIVER    SCOPE
+be477bea3278   bridge     bridge    local
+81de170dc150   host       host      local
+e1b3fd18e959   network1   bridge    local
+97c80bdacc54   network2   bridge    local
+3c937eab1c2d   none       null      local
 ```
 ## Inspect both Networks
 ```shell
@@ -579,8 +580,8 @@ docker inspect network1 network2
 [
     {
         "Name": "network1",
-        "Id": "9144f560591576235b047a1fb2df039b43c9b18c60ed2f70e4dcd3011a6abe7a",
-        "Created": "2023-08-07T08:45:17.536919363Z",
+        "Id": "e1b3fd18e959e16dd435503658eea8a6e09438de5842bae1da133a1f500d9c50",
+        "Created": "2023-08-07T12:49:48.430259469Z",
         "Scope": "local",
         "Driver": "bridge",
         "EnableIPv6": false,
@@ -589,8 +590,8 @@ docker inspect network1 network2
             "Options": null,
             "Config": [
                 {
-                    "Subnet": "172.20.0.0/16",
-                    "Gateway": "172.20.0.1"
+                    "Subnet": "172.29.0.0/16",
+                    "Gateway": "172.29.0.1"
                 }
             ]
         },
@@ -602,18 +603,18 @@ docker inspect network1 network2
         },
         "ConfigOnly": false,
         "Containers": {
-            "c761dbe44761c5bd6b10e69f8e41c23eac499b5e2a1191d112926687748173cc": {
+            "25b3687d796a0ebb6a1f9eaddedcb26a28e5694e2f76d6f490260605d2ac6e27": {
                 "Name": "999-dockernetworks-test2-1",
-                "EndpointID": "46bd387d9230787058d034e4e239f6fe833947fd393641551bcdba4946d788d9",
-                "MacAddress": "02:42:ac:14:00:03",
-                "IPv4Address": "172.20.0.3/16",
+                "EndpointID": "5f5fef73c6742f33d109ec0f06ec9287b0458d979685703ebd6915005ee4ce2a",
+                "MacAddress": "02:42:ac:1d:00:03",
+                "IPv4Address": "172.29.0.3/16",
                 "IPv6Address": ""
             },
-            "d993dbc59de0971ac4ea099a596f2c588bf27c82685d6bd7ba110f726c0bdbd2": {
+            "74f607f92d17d7db9ad33f3f9e361ed25c87944741985c509c62844297b36972": {
                 "Name": "999-dockernetworks-test1-1",
-                "EndpointID": "aebd37862443a52e9f88b24864f9152c78275b38f7ec55d4f24458dcd4e3b73c",
-                "MacAddress": "02:42:ac:14:00:02",
-                "IPv4Address": "172.20.0.2/16",
+                "EndpointID": "22f222371f6ef395e4a123cc22b26dadfd6040eeb408a28cb3bd4a20ddbe46da",
+                "MacAddress": "02:42:ac:1d:00:02",
+                "IPv4Address": "172.29.0.2/16",
                 "IPv6Address": ""
             }
         },
@@ -626,8 +627,8 @@ docker inspect network1 network2
     },
     {
         "Name": "network2",
-        "Id": "0e344a7f56b0a6ac641dee723ca9acd6a5b32a257a6549559eacd61a62f3afe1",
-        "Created": "2023-08-07T08:45:17.106359288Z",
+        "Id": "97c80bdacc54cfa487d98f86000a5af137ae0b756716766d50db79251259df86",
+        "Created": "2023-08-07T12:49:48.787679307Z",
         "Scope": "local",
         "Driver": "bridge",
         "EnableIPv6": false,
@@ -636,8 +637,8 @@ docker inspect network1 network2
             "Options": null,
             "Config": [
                 {
-                    "Subnet": "172.19.0.0/16",
-                    "Gateway": "172.19.0.1"
+                    "Subnet": "172.30.0.0/16",
+                    "Gateway": "172.30.0.1"
                 }
             ]
         },
@@ -649,18 +650,18 @@ docker inspect network1 network2
         },
         "ConfigOnly": false,
         "Containers": {
-            "21ccd35657823c0f4b249c8cc90997e58a0234e7e267bc2764eb2562315bb11f": {
-                "Name": "999-dockernetworks-test3-1",
-                "EndpointID": "e6b02b0a4f7c8ebe43ce84712ffa81fd6883747429f8eb75fe788d354288fc68",
-                "MacAddress": "02:42:ac:13:00:02",
-                "IPv4Address": "172.19.0.2/16",
+            "25b3687d796a0ebb6a1f9eaddedcb26a28e5694e2f76d6f490260605d2ac6e27": {
+                "Name": "999-dockernetworks-test2-1",
+                "EndpointID": "6c80d7cf1f96847ff402c6b6e36e59d313d64ab14514ddfba6a8d9bc3c891a33",
+                "MacAddress": "02:42:ac:1e:00:03",
+                "IPv4Address": "172.30.0.3/16",
                 "IPv6Address": ""
             },
-            "c761dbe44761c5bd6b10e69f8e41c23eac499b5e2a1191d112926687748173cc": {
-                "Name": "999-dockernetworks-test2-1",
-                "EndpointID": "fe5ef3f4e9f3018ed998fbf9ccbb13aa463d9c1fba2de13264d857d3eae7cb05",
-                "MacAddress": "02:42:ac:13:00:03",
-                "IPv4Address": "172.19.0.3/16",
+            "603b1197f8b3dac77e058db54736597c994554f4ee6de086f9ef33b5d3bad775": {
+                "Name": "999-dockernetworks-test3-1",
+                "EndpointID": "bf0c58321f1f875868d5bdc997d4e849392e4d66264cf83112bb64d74dffeba5",
+                "MacAddress": "02:42:ac:1e:00:02",
+                "IPv4Address": "172.30.0.2/16",
                 "IPv6Address": ""
             }
         },
@@ -678,14 +679,14 @@ docker inspect network1 network2
 docker inspect -f "{{range .IPAM.Config}}{{.Subnet}}{{end}}" network1
 ```
 ```output
-172.20.0.0/16
+172.29.0.0/16
 ```
 ## Get IP address from network2
 ```shell
 docker inspect -f "{{range .IPAM.Config}}{{.Subnet}}{{end}}" network2
 ```
 ```output
-172.19.0.0/16
+172.30.0.0/16
 ```
 
 ##  let's list all containers with their identifiers:
@@ -694,56 +695,60 @@ docker ps --format "table {{.ID}}\t{{.Names}}"
 ```
 ```output
 CONTAINER ID   NAMES
-21ccd3565782   999-dockernetworks-test3-1
-d993dbc59de0   999-dockernetworks-test1-1
-c761dbe44761   999-dockernetworks-test2-1
+CONTAINER ID   NAMES
+74f607f92d17   999-dockernetworks-test1-1
+25b3687d796a   999-dockernetworks-test2-1
+603b1197f8b3   999-dockernetworks-test3-1
+
 ```
-## get IP address of Container test 1 d993dbc59de0 under network 1
+## get IP address of Container test 1 74f607f92d17 under network 1
 ```shell
-docker inspect d993dbc59de0 --format "{{.NetworkSettings.Networks.network1.IPAddress}}"
+docker inspect 74f607f92d17 --format "{{.NetworkSettings.Networks.network1.IPAddress}}"
 ```
 ```output
-172.20.0.2
+172.29.0.2
 ```
-## get IP address of Container test 1 d993dbc59de0 under network 2
+## get IP address of Container test 1 74f607f92d17 under network 2
 ```shell
-docker inspect d993dbc59de0 --format "{{.NetworkSettings.Networks.network2.IPAddress}}"
-```
-```output
-<no value>
-```
-## get IP address of Container test 2 c761dbe44761 network 1
-```shell
-docker inspect c761dbe44761 --format "{{.NetworkSettings.Networks.network1.IPAddress}}"
-```
-```output
-172.19.0.3
-```
-## get IP address of Container test 2 c761dbe44761 network 2
-```shell
-docker inspect c761dbe44761 --format "{{.NetworkSettings.Networks.network2.IPAddress}}"
-```
-```output
-172.19.0.3
-```
-## get IP address of Container test 3 21ccd3565782   network 1
-```shell
-docker inspect 21ccd3565782   --format "{{.NetworkSettings.Networks.network1.IPAddress}}"
+docker inspect 74f607f92d17 --format "{{.NetworkSettings.Networks.network2.IPAddress}}"
 ```
 ```output
 <no value>
 ```
-## get IP address of Container test 3 21ccd3565782   network 2
+## get IP address of Container test 2 25b3687d796a network 1
 ```shell
-docker inspect 21ccd3565782   --format "{{.NetworkSettings.Networks.network2.IPAddress}}"
+docker inspect 25b3687d796a --format "{{.NetworkSettings.Networks.network1.IPAddress}}"
 ```
 ```output
-172.19.0.2
+172.29.0.3
+```
+## get IP address of Container test 2 25b3687d796a network 2
+```shell
+docker inspect 25b3687d796a --format "{{.NetworkSettings.Networks.network2.IPAddress}}"
+```
+```output
+172.30.0.3
+```
+## get IP address of Container test 3 603b1197f8b3   network 1
+```shell
+docker inspect 603b1197f8b3   --format "{{.NetworkSettings.Networks.network1.IPAddress}}"
+```
+```output
+<no value>
+```
+## get IP address of Container test 3 603b1197f8b3   network 2
+```shell
+docker inspect 603b1197f8b3   --format "{{.NetworkSettings.Networks.network2.IPAddress}}"
+```
+```output
+172.30.0.2
 ```
 ------------------------
 ## Alternatively, we can print hosts directly from a container using the docker exec command:
+### TEST 1
+
 ```shell
-docker exec 21ccd3565782   cat /etc/hosts
+docker exec 74f607f92d17   cat /etc/hosts
 ```
 ```output
 127.0.0.1       localhost
@@ -752,10 +757,11 @@ fe00::0 ip6-localnet
 ff00::0 ip6-mcastprefix
 ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
-172.19.0.2      21ccd3565782
+172.29.0.2      74f607f92d17
 ```
+### TEST 2 
 ```shell
-docker exec c761dbe44761 cat /etc/hosts
+docker exec 25b3687d796a cat /etc/hosts
 ```
 ```output
 127.0.0.1       localhost
@@ -764,11 +770,12 @@ fe00::0 ip6-localnet
 ff00::0 ip6-mcastprefix
 ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
-172.20.0.3      c761dbe44761
-172.19.0.3      c761dbe44761
+172.29.0.3      25b3687d796a
+172.30.0.3      25b3687d796a
 ```
+### TEST 3
 ```shell
-docker exec d993dbc59de0   cat /etc/hosts
+docker exec 603b1197f8b3   cat /etc/hosts
 ```
 ```output
 127.0.0.1       localhost
@@ -777,45 +784,71 @@ fe00::0 ip6-localnet
 ff00::0 ip6-mcastprefix
 ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
-172.20.0.2      d993dbc59de0
+172.30.0.2      603b1197f8b3
 ```
 ---------------------------
 ## Communication Between Containers
-21ccd3565782   999-dockernetworks-test3-1 (172.19.0.2)
-d993dbc59de0   999-dockernetworks-test1-1 (172.20.0.2)
-c761dbe44761   999-dockernetworks-test2-1 (172.20.0.3)
+CONTAINER ID   NAMES
+74f607f92d17   999-dockernetworks-test1-1 (172.29.0.2)
+25b3687d796a   999-dockernetworks-test2-1 (172.29.0.3 and 172.30.0.3) 
+603b1197f8b3   999-dockernetworks-test3-1 (172.30.0.2)
 
 ## Launch shell for Test1
 ```shell
-docker exec -it d993dbc59de0 /bin/bash
+docker exec -it 74f607f92d17 /bin/bash
 ```
 
 ## you can ping Test2 from Test1 machine 
 ```shell
-curl 172.22.0.2:8080
-OR
-curl test2:8080
+curl 172.29.0.3:8080 # this should run as they are from same netowrk 
+AND
+curl 172.30.0.3:8080 # But, this should timeout  as they are from diff netowrk 
 ```
 
-## the following command will timeout
+## Launch shell for Test3
 ```shell
-root@test1:/# curl 172.23.0.2:8080
-OR
-root@test1:/# curl test3:8080
+docker exec -it 603b1197f8b3 /bin/bash
 ```
+
+## you can ping Test2 from Test3 machine 
+```shell
+curl 172.29.0.3:8080 # this should timeout as they are from diff networks
+AND
+curl 172.30.0.3:8080 # But this should run as they are from same networks
+```
+
+## Launch shell for Test2
+```shell
+docker exec -it 25b3687d796a /bin/bash
+```
+
+## you can ping Test1 & test3 from Test2 machine 
+```shell
+curl 172.29.0.2:8080 # this should run as they are from same networks
+AND
+curl 172.30.0.2:8080 # this should run as they are from same networks
+```
+
 
 ## To make this work, we need to add “test3” container to “network1” (from outside of the container):
 
 ```shell
-docker network connect --alias test3 network1 f229dde68f3b
+docker network connect --alias test3 network1 603b1197f8b3
 ```
 
 Now request to “test3” will work correctly:
 
+## Launch shell for Test3
 ```shell
-root@test1:/# curl test3:8080
+docker exec -it 603b1197f8b3 /bin/bash
 ```
 
+## you can ping Test2 from Test3 machine 
+```shell
+curl 172.29.0.3:8080 #  this should run as they are from same networks
+AND
+curl 172.30.0.3:8080 #  this should run as they are from same networks
+```
 
 ### Add network delay to a Container
 
