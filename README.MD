@@ -185,7 +185,90 @@ In order to test this command, we must have few containers running in "Docker De
     ```shell
     docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba -l info --random --interval 30s kill
     ```
+
+### Add network delay to a Container on userdefined netowrk
+
+### create a docker network.
+```shell
+docker network create -d bridge --subnet 172.25.0.0/16 isolated_nw44
+```
+### Run a docker container in this network.
+```shell
+docker run -d -p 4444:4444 -v /dev/shm:/dev/shm --name=container44 --network=isolated_nw44 --ip=172.25.3.3 selenium/standalone-chrome
+```
+### check the network interface created, where the docker container is.
+```shell
+docker netowrk ls
+```
+```output
+NETWORK ID     NAME            DRIVER    SCOPE
+be477bea3278   bridge          bridge    local
+81de170dc150   host            host      local
+4e6ea17464b7   isolated_nw44   bridge    local
+5d1f4cfddb05   kind            bridge    local
+3c937eab1c2d   none            null      local
+```
+### inspect newly created docker network with ID
+```shell
+docker inspect 4e6ea17464b7
+```
+```output
+[
+    {
+        "Name": "isolated_nw44",
+        "Id": "4e6ea17464b7327b257f1cec34b0c03880405fe7f0fd69bb439662357a3302e9",
+        "Created": "2023-08-07T06:49:51.173082637Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.27.0.0/16"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "e91876bf6d977fa532163e6b2b819bad6f575aee5075b89ce33b7462945f7038": {
+                "Name": "container44",
+                "EndpointID": "e6fadb4009368358c8bad1cc05024dcdedb7a4c4598b8aab601e459778ee5fe2",
+                "MacAddress": "02:42:ac:1b:03:03",
+                "IPv4Address": "172.27.3.3/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {},
+        "Labels": {}
+    }
+]
+```
+### get the ip address used in the netowrk using the following command
+```shell
+docker inspect -f "{{range .IPAM.Config}}{{.Subnet}}{{end}}" isolated_nw44
+```
+```output
+172.22.0.0/16
+```
+### Now applying netem on the new network
+```shell
+docker run -it --rm  -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba netem --duration 5m --tc-image gaiadocker/iproute2 delay --time 1000 container44
+```
+### Use the following command, netem is applying the delay to entire box network
+```shell
+docker run -it --rm  -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba netem --duration 5m --interface eth0 --tc-image gaiadocker/iproute2 delay --time 1000 container44
+```
+
 ### Add network delay to a Container
+
 ```shell
 docker run --rm --name networker -it alpine sh -c "apk add --update iproute2 && ping www.example.com"
 ```
